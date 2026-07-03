@@ -1,0 +1,45 @@
+{
+  "time": 1782716846281,
+  "blocks": [
+    {
+      "id": "GoUSIh_-P4",
+      "type": "header",
+      "data": {
+        "text": "Movie Recomendation System",
+        "level": 2
+      }
+    },
+    {
+      "id": "KWqK9FpUgA",
+      "type": "list",
+      "data": {
+        "style": "checklist",
+        "meta": {},
+        "items": [
+          {
+            "content": "Fill the Missing values in the description of some of movies",
+            "meta": {
+              "checked": false
+            },
+            "items": []
+          },
+          {
+            "content": "Remove \"See More Summary\" and clean the words from description",
+            "meta": {
+              "checked": false
+            },
+            "items": []
+          },
+          {
+            "content": "Some rows have description of another movie ",
+            "meta": {
+              "checked": false
+            },
+            "items": []
+          }
+        ]
+      }
+    }
+  ],
+  "version": "2.31.5"
+}
