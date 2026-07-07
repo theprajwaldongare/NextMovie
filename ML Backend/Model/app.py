@@ -40,11 +40,7 @@ def bMovie():
         "status":"success",
         "message":dataSend
     })
-    # for i in topIndexDec:
-    #     print(df['title'].iloc[i])
-    #     print("Cosine Value: ", bsimilarDec[i])
-    #     print(df['desc'].iloc[i])
-    #     print("\n")
+
 
 hdf = pd.read_csv("Datasets/hollywood.csv")
 with open("bin/hvectorizer.pkl","rb") as f:
