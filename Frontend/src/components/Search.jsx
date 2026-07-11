@@ -1,0 +1,87 @@
+import React, { useState } from 'react'
+import { Plus, Minus } from "lucide-react"
+
+
+
+const Search = () => {
+    const [summary, setSummary] = useState('')
+    const [inpType, setInpType] = useState('summary')
+    const [movieNo, setMovieNo] = useState(5)
+
+    const summaryChange = (e) => {
+        setSummary(e.target.value)
+    }
+
+    const inptypeChange = (e) => {
+        if (inpType == 'summary') {
+            setInpType('name')
+        }
+        else if (inpType == 'name') {
+            setInpType('summary')
+        }
+    }
+    const changeMovieNo = (val) => {
+
+        if (val == 'dec') {
+            if (movieNo <= 1) {
+                return
+            }
+            setMovieNo(p => p - 1)
+        }
+        if (val == 'inc') {
+            setMovieNo(p => p + 1)
+        }
+    }
+    
+    const recommendMovie = ()=>{
+
+    }
+    
+    return (
+        <>
+            <div className="btn w-full flex justify-center mt-3">
+                <div className="btnmain">
+                    <div className="btntext flex justify-center font-mono text-xl text-white">Search Movie By</div>
+                    <div className="button flex justify-center mt-4">
+                        <label className="relative inline-flex items-center cursor-pointer hover:opacity-90 transition-opacity">
+                            <input className="sr-only peer" value="" onChange={inptypeChange} type="checkbox" />
+
+                            <div className="peer rounded-full outline-none duration-300 after:duration-500 w-48 h-10 bg-blue-300 peer-focus:outline-none 
+                                after:content-['Summary'] after:absolute after:outline-none after:rounded-full after:h-8 after:w-24 after:bg-white after:top-1 after:left-1 
+                                after:flex after:justify-center after:items-center after:text-sky-800 after:font-bold after:text-sm after:shadow-sm
+                                peer-checked:after:translate-x-22 peer-checked:after:content-['Name']">
+                            </div>
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {/* <div className="test">
+                {inpType}
+            </div> */}
+            <div className="main w-full flex justify-center h-120 p-12 mt-4">
+                <div className="left w-full max-w-2xl flex items-center flex-col">
+                    <textarea className='summaryInp no-scrollbar resize-none w-full h-20 bg-gray-800 text-white border border-gray-600 rounded-2xl p-3 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all shadow-inner placeholder-gray-400"' id='summaryInp' value={summary} type='text' placeholder="Describe the movie you want to watch... " onChange={summaryChange} />
+
+                    <div className="movieNo flex mt-3 select-none">
+                        <div className="dec w-8 h-8 rounded-full border border-gray-600 m-3 cursor-pointer flex justify-center items-center" onClick={() => changeMovieNo('dec')}>
+                            <Minus size={16} />
+                        </div>
+                        <div className="movieNoDsp w-8 h-8 rounded-xl border border-gray-600 m-3 flex justify-center items-center">{movieNo}</div>
+                        <div className="inc w-8 h-8 rounded-full border border-gray-600 m-3 cursor-pointer flex justify-center items-center" onClick={() => changeMovieNo('inc')}>
+                            <Plus size={18} />
+                        </div>
+                    </div>
+
+                    <div className="rec">
+                        <button className='cursor-pointer mt-5 bg-blue-500 p-3 rounded-xl' onClick={recommendMovie}>Recommend</button>
+                    </div>
+                </div>
+                {/* <div className="right"></div> */}
+            </div>
+        </>
+    )
+}
+
+export default Search

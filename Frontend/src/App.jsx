@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
+import Search from './components/Search'
 import MovieTemplate from './components/MovieTemplate'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   return (
     <>
       <Navbar/>
+      <Search/>
       <MovieTemplate/>
     </>
   )
