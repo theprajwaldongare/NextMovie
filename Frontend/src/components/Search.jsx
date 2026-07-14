@@ -8,8 +8,26 @@ const Search = () => {
     const [inpType, setInpType] = useState('summary')
     const [movieNo, setMovieNo] = useState(5)
 
+    const [bInclude, setBInclude] = useState(true)
+    const [hInclude, setHInclude] = useState(true)
+
     const summaryChange = (e) => {
         setSummary(e.target.value)
+    }
+
+    const changeBIncType = (e) =>{
+        // to prevent both the checkbox off at same time
+        if (hInclude==false && e.target.checked==false) {
+            return
+        }
+        setBInclude(e.target.checked)
+        
+    }
+    const changeHIncType = (e) =>{
+        if (bInclude==false && e.target.checked==false) {
+            return
+        }
+        setHInclude(e.target.checked)
     }
 
     const inptypeChange = (e) => {
@@ -32,11 +50,11 @@ const Search = () => {
             setMovieNo(p => p + 1)
         }
     }
-    
-    const recommendMovie = ()=>{
+
+    const recommendMovie = () => {
 
     }
-    
+
     return (
         <>
             <div className="btn w-full flex justify-center mt-3">
@@ -74,9 +92,41 @@ const Search = () => {
                         </div>
                     </div>
 
+                    <div className="btype flex items-center space-x-2 mt-4">
+                        <input
+                            type="checkbox"
+                            name="bmovie"
+                            id="bmovie"
+                            className="w-5 h-5 accent-blue-500 cursor-pointer"
+                            checked={bInclude}
+                            onChange={changeBIncType}
+                        />
+                        <label htmlFor="bmovie" className="text-white font-mono cursor-pointer">
+                            Bollywood Movies
+                        </label>
+                    </div>
+
+                    <div className="htype flex items-center space-x-2 mt-2 ">
+                        <input
+                            type="checkbox"
+                            name="hmovie"
+                            id="hmovie"
+                            className="w-5 h-5 accent-blue-500 cursor-pointer"
+                            checked={hInclude}
+                            onChange={changeHIncType}
+                        />
+                        <label htmlFor="hmovie" className="text-white font-mono cursor-pointer">
+                            Hollywood Movies
+                        </label>
+                    </div>
+
+                    {/* <div className="test">
+                        Hval : {String(hInclude)}
+                    </div> */}
                     <div className="rec">
                         <button className='cursor-pointer mt-5 bg-blue-500 p-3 rounded-xl' onClick={recommendMovie}>Recommend</button>
                     </div>
+
                 </div>
                 {/* <div className="right"></div> */}
             </div>
