@@ -1,5 +1,5 @@
 {
-  "time": 1783254634008,
+  "time": 1784133385268,
   "blocks": [
     {
       "id": "GoUSIh_-P4",
@@ -19,7 +19,7 @@
           {
             "content": "Fill the Missing values in the description of some of movies",
             "meta": {
-              "checked": false
+              "checked": true
             },
             "items": []
           },
@@ -31,7 +31,14 @@
             "items": []
           },
           {
-            "content": "Some rows have description of another movie ",
+            "content": "Fetch the movie posters image from TMDB",
+            "meta": {
+              "checked": false
+            },
+            "items": []
+          },
+          {
+            "content": "Fetch the movie summary, when user type only movie name ",
             "meta": {
               "checked": false
             },

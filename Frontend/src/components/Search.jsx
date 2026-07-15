@@ -15,16 +15,16 @@ const Search = () => {
         setSummary(e.target.value)
     }
 
-    const changeBIncType = (e) =>{
+    const changeBIncType = (e) => {
         // to prevent both the checkbox off at same time
-        if (hInclude==false && e.target.checked==false) {
+        if (hInclude == false && e.target.checked == false) {
             return
         }
         setBInclude(e.target.checked)
-        
+
     }
-    const changeHIncType = (e) =>{
-        if (bInclude==false && e.target.checked==false) {
+    const changeHIncType = (e) => {
+        if (bInclude == false && e.target.checked == false) {
             return
         }
         setHInclude(e.target.checked)
@@ -51,8 +51,86 @@ const Search = () => {
         }
     }
 
-    const recommendMovie = () => {
+    const recommendMovie = async () => {
 
+        if (inpType == 'summary') {
+            if (summary.trim() === '') {
+                return
+            }
+
+            if (bInclude && hInclude) {
+                try {
+                    const res = await fetch("http://127.0.0.1:5000/recommend", {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            movie: summary,
+                            movieNo: movieNo,
+                        })
+                    })
+
+                    if (!res.ok) {
+                        console.log(await res.text())
+                        return
+                    }
+                    const data = await res.json()
+                    console.log(data)
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            else if(bInclude){
+                try {
+                    const res = await fetch("http://127.0.0.1:5000/bollywood", {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            bmovie: summary,
+                            movieNo: movieNo,
+                        })
+                    })
+
+                    if (!res.ok) {
+                        console.log(await res.text())
+                        return
+                    }
+                    const data = await res.json()
+                    console.log(data)
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            else if(hInclude){
+                try {
+                    const res = await fetch("http://127.0.0.1:5000/hollywood", {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            hmovie: summary,
+                            movieNo: movieNo,
+                        })
+                    })
+
+                    if (!res.ok) {
+                        console.log(await res.text())
+                        return
+                    }
+                    const data = await res.json()
+                    console.log(data)
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        }
     }
 
     return (
@@ -79,8 +157,8 @@ const Search = () => {
                 {inpType}
             </div> */}
             <div className="main w-full flex justify-center h-120 p-12 mt-4">
-                <div className="left w-full max-w-2xl flex items-center flex-col">
-                    <textarea className='summaryInp no-scrollbar resize-none w-full h-20 bg-gray-800 text-white border border-gray-600 rounded-2xl p-3 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all shadow-inner placeholder-gray-400"' id='summaryInp' value={summary} type='text' placeholder="Describe the movie you want to watch... " onChange={summaryChange} />
+                <div className="middle w-full max-w-2xl flex items-center flex-col">
+                    <textarea className='summaryInp no-scrollbar resize-none w-full h-20 bg-gray-800 text-white border border-gray-600 rounded-2xl p-3 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all shadow-inner placeholder-gray-400"' id='summaryInp' value={summary} type='text' placeholder={inpType == 'summary' ? "Describe the movie you want to watch... " : "Enter movie name"} onChange={summaryChange} />
 
                     <div className="movieNo flex mt-3 select-none">
                         <div className="dec w-8 h-8 rounded-full border border-gray-600 m-3 cursor-pointer flex justify-center items-center" onClick={() => changeMovieNo('dec')}>
@@ -128,7 +206,7 @@ const Search = () => {
                     </div>
 
                 </div>
-                {/* <div className="right"></div> */}
+
             </div>
         </>
     )
