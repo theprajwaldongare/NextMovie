@@ -5,7 +5,7 @@ const DisplayMovies = () => {
     const { movieData } = useContext(MovieContext)
     return (
         <>
-            {movieData}
+            {/* {movieData} */}
         </>
     )
 }

@@ -1,12 +1,19 @@
+import os
 import pickle
+import requests
 import numpy as np
 import pandas as pd
+from dotenv import load_dotenv
 from flask_cors import CORS
 from sklearn.metrics.pairwise import cosine_similarity
 from flask import Flask,url_for,redirect,request,render_template,jsonify
 
+
 app = Flask(__name__)
 CORS(app)
+
+load_dotenv()
+TMDBAPI = os.getenv('TMDB_API')
 
 @app.route("/")
 def home():
@@ -15,6 +22,39 @@ def home():
 df = pd.read_csv("Datasets/bollywood.csv")
 with open("bin/vectorizer.pkl","rb") as f:
     vectorizer = pickle.load(f)
+
+
+def getMovieInfo(movieName):
+    url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDBAPI}&query={movieName}"
+    response = requests.get(url).json()
+    movieInfo = {}
+    if response.get('results'):
+        top=response['results'][0]
+        title = top.get('title')
+        rating = top.get('vote_average')
+        votes = top.get('vote_count')
+        popularity = top.get('popularity')
+        posterPath = top.get('poster_path')
+
+        image = 'https://image.tmdb.org/t/p/w500'
+        poster = f"{image}{posterPath}" if posterPath else "No image"
+
+        movieInfo['title'] = title
+        movieInfo['rating'] = rating
+        movieInfo['votes'] = votes
+        movieInfo['popularity'] = popularity
+        movieInfo['poster'] = poster
+
+        # print(f"Title: {title}")
+        # print(f"Rating: {rating}/10 (from {votes} votes)")
+        # print(f"Popularity Score: {popularity}")
+        # print(f"Poster Link: {poster}")
+        
+    else:
+        # print("Movie not found")
+        pass
+    return movieInfo
+    
 
 def recBollywood(bsearch,movieNo):
     with open("bin/bollywoodVectors.pkl","rb") as f:
@@ -32,6 +72,8 @@ def recBollywood(bsearch,movieNo):
         temp.append(df['title'].iloc[i])
         temp.append(bsimilarDec[i])
         temp.append(df['desc'].iloc[i])
+        tmdbData = getMovieInfo(df['title'].iloc[i])
+        temp.append(tmdbData)
         dataSend.append(temp)
     return dataSend
 
@@ -70,6 +112,8 @@ def recHollywood(hsearch,movieNo):
         temp.append(hdf['title'].iloc[i])
         temp.append(hsimilarDec[i])
         temp.append(hdf['desc'].iloc[i])
+        tmdbData = getMovieInfo(hdf['title'].iloc[i])
+        temp.append(tmdbData)
         dataSend.append(temp)
     return dataSend
 
@@ -103,7 +147,7 @@ def recMovie():
         databollywood = recBollywood(bsearch,(movieNo//2))
 
     return jsonify({
-        "status":"sussess",
+        "status":"success",
         "message":datahollywood+databollywood
     })
 
