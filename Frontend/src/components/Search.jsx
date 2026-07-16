@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Plus, Minus } from "lucide-react"
+import { MovieContext } from '../context/MovieData'
 
 
 
@@ -10,6 +11,8 @@ const Search = () => {
 
     const [bInclude, setBInclude] = useState(true)
     const [hInclude, setHInclude] = useState(true)
+
+    const { setMovieData } = useContext(MovieContext)
 
     const summaryChange = (e) => {
         setSummary(e.target.value)
@@ -77,12 +80,13 @@ const Search = () => {
                     }
                     const data = await res.json()
                     console.log(data)
+                    setMovieData(data.message)
 
                 } catch (error) {
                     console.log(error)
                 }
             }
-            else if(bInclude){
+            else if (bInclude) {
                 try {
                     const res = await fetch("http://127.0.0.1:5000/bollywood", {
                         method: 'POST',
@@ -101,12 +105,13 @@ const Search = () => {
                     }
                     const data = await res.json()
                     console.log(data)
+                    setMovieData(data.message)
 
                 } catch (error) {
                     console.log(error)
                 }
             }
-            else if(hInclude){
+            else if (hInclude) {
                 try {
                     const res = await fetch("http://127.0.0.1:5000/hollywood", {
                         method: 'POST',
@@ -125,6 +130,7 @@ const Search = () => {
                     }
                     const data = await res.json()
                     console.log(data)
+                    setMovieData(data.message)
 
                 } catch (error) {
                     console.log(error)

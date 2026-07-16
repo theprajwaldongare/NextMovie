@@ -42,27 +42,10 @@ def bMovie():
     bsearch = recdata.get("bmovie")
     movieNo = recdata.get("movieNo")
     databollywood = recBollywood(bsearch,movieNo)
-    # with open("bin/bollywoodVectors.pkl","rb") as f:
-    #     bVectors = pickle.load(f)
-    # bsrchDecVec = vectorizer.transform([bsearch])
-    # bsimilarDec = cosine_similarity(bsrchDecVec,bVectors).flatten()
-    # topK = 5
-    # topIndexDec = np.argsort(bsimilarDec)[::-1][:topK]
-    # print(topIndexDec)
 
-    # print("Search keyword: ",bsearch)
-    # print("\n")
-    # dataSend = []
-    # for i in topIndexDec:
-    #     temp=[]
-    #     temp.append(df['title'].iloc[i])
-    #     temp.append(bsimilarDec[i])
-    #     temp.append(df['desc'].iloc[i])
-    #     dataSend.append(temp)
     return jsonify({
         "status":"success",
         "message":databollywood
-        # "message":dataSend
     })
 
 
@@ -97,27 +80,10 @@ def hMovie():
     hsearch = recdata.get("hmovie")
     movieNo = recdata.get("movieNo")
     datahollywood = recHollywood(hsearch,movieNo)
-    # with open("bin/hollywoodVectors.pkl","rb") as f:
-    #     hVectors = pickle.load(f)
-    # hsrchDecVec = hvectorizer.transform([hsearch])
-    # hsimilarDec = cosine_similarity(hsrchDecVec,hVectors).flatten()
-    # topK = 5
-    # topIndexDec = np.argsort(hsimilarDec)[::-1][:topK]
-    # print(topIndexDec)
 
-    # print("Search keyword: ",hsearch)
-    # print("\n")
-    # dataSend = []
-    # for i in topIndexDec:
-    #     temp=[]
-    #     temp.append(hdf['title'].iloc[i])
-    #     temp.append(hsimilarDec[i])
-    #     temp.append(hdf['desc'].iloc[i])
-    #     dataSend.append(temp)
     return jsonify({
         "status":"success",
         "message":datahollywood
-        # "message":dataSend
     })
 
 @app.route("/recommend",methods=["POST"])
