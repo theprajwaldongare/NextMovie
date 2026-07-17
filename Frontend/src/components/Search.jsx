@@ -175,7 +175,7 @@ const Search = () => {
             {/* <div className="test">
                 {inpType}
             </div> */}
-            <div className="main w-full flex justify-center h-120 p-12 mt-4">
+            <div className="main w-full flex justify-center h-100 p-8 md:p-12 mt-4">
                 <div className="middle w-full max-w-2xl flex items-center flex-col">
                     <textarea className='summaryInp no-scrollbar resize-none w-full h-20 bg-gray-800 text-white border border-gray-600 rounded-2xl p-3 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all shadow-inner placeholder-gray-400"' id='summaryInp' value={summary} type='text' placeholder={inpType == 'summary' ? "Describe the movie you want to watch... " : "Enter movie name"} onChange={summaryChange} />
 
