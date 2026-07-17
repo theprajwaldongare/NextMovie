@@ -56,7 +56,7 @@ const Search = () => {
 
     const recommendMovie = async () => {
 
-        if (inpType == 'summary') {
+        
             if (summary.trim() === '') {
                 return
             }
@@ -71,6 +71,7 @@ const Search = () => {
                         body: JSON.stringify({
                             movie: summary,
                             movieNo: movieNo,
+                            inpType:inpType
                         })
                     })
 
@@ -96,6 +97,7 @@ const Search = () => {
                         body: JSON.stringify({
                             bmovie: summary,
                             movieNo: movieNo,
+                            inpType:inpType
                         })
                     })
 
@@ -121,6 +123,7 @@ const Search = () => {
                         body: JSON.stringify({
                             hmovie: summary,
                             movieNo: movieNo,
+                            inpType:inpType
                         })
                     })
 
@@ -136,7 +139,7 @@ const Search = () => {
                     console.log(error)
                 }
             }
-        }
+        
     }
 
     return (

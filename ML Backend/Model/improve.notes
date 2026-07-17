@@ -1,5 +1,5 @@
 {
-  "time": 1784133385268,
+  "time": 1784222593232,
   "blocks": [
     {
       "id": "GoUSIh_-P4",
@@ -33,7 +33,7 @@
           {
             "content": "Fetch the movie posters image from TMDB",
             "meta": {
-              "checked": false
+              "checked": true
             },
             "items": []
           },

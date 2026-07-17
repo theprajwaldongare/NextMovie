@@ -35,6 +35,7 @@ def getMovieInfo(movieName):
         votes = top.get('vote_count')
         popularity = top.get('popularity')
         posterPath = top.get('poster_path')
+        overview = top.get('overview','')
 
         image = 'https://image.tmdb.org/t/p/w500'
         poster = f"{image}{posterPath}" if posterPath else "No image"
@@ -44,6 +45,8 @@ def getMovieInfo(movieName):
         movieInfo['votes'] = votes
         movieInfo['popularity'] = popularity
         movieInfo['poster'] = poster
+        
+        movieInfo['overview'] = overview
 
         # print(f"Title: {title}")
         # print(f"Rating: {rating}/10 (from {votes} votes)")
@@ -83,6 +86,12 @@ def bMovie():
     recdata = request.get_json()
     bsearch = recdata.get("bmovie")
     movieNo = recdata.get("movieNo")
+
+    inpType = recdata.get("inpType")
+    if inpType=="name":
+        tmdbData = getMovieInfo(bsearch)
+        bsearch = tmdbData.get("overview") or bsearch
+    
     databollywood = recBollywood(bsearch,movieNo)
 
     return jsonify({
@@ -123,6 +132,12 @@ def hMovie():
     recdata = request.get_json()
     hsearch = recdata.get("hmovie")
     movieNo = recdata.get("movieNo")
+
+    inpType = recdata.get("inpType")
+    if inpType=="name":
+        tmdbData = getMovieInfo(hsearch)
+        hsearch = tmdbData.get("overview") or hsearch
+
     datahollywood = recHollywood(hsearch,movieNo)
 
     return jsonify({
@@ -136,6 +151,13 @@ def recMovie():
     bsearch = recdata.get("movie")
     hsearch = recdata.get("movie")
     movieNo = recdata.get("movieNo")
+
+    inpType = recdata.get("inpType")
+    if inpType=="name":
+        tmdbData = getMovieInfo(bsearch)
+        bsearch = tmdbData.get("overview") or bsearch
+    hsearch = bsearch
+    
     datahollywood=[]
     databollywood=[]
     if movieNo%2!=0:
