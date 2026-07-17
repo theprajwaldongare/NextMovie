@@ -12,7 +12,7 @@ const Search = () => {
     const [bInclude, setBInclude] = useState(true)
     const [hInclude, setHInclude] = useState(true)
 
-    const { setMovieData } = useContext(MovieContext)
+    const { setMovieData,setIsLoading,setMovieNoSkeleton } = useContext(MovieContext)
 
     const summaryChange = (e) => {
         setSummary(e.target.value)
@@ -60,6 +60,10 @@ const Search = () => {
             if (summary.trim() === '') {
                 return
             }
+            setMovieNoSkeleton(movieNo)
+            setIsLoading(true)
+            
+            
 
             if (bInclude && hInclude) {
                 try {
@@ -85,6 +89,8 @@ const Search = () => {
 
                 } catch (error) {
                     console.log(error)
+                } finally{
+                    setIsLoading(false)
                 }
             }
             else if (bInclude) {
@@ -111,6 +117,8 @@ const Search = () => {
 
                 } catch (error) {
                     console.log(error)
+                } finally{
+                    setIsLoading(false)
                 }
             }
             else if (hInclude) {
@@ -137,6 +145,8 @@ const Search = () => {
 
                 } catch (error) {
                     console.log(error)
+                } finally{
+                    setIsLoading(false)
                 }
             }
         
