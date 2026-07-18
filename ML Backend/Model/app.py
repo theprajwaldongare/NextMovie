@@ -23,8 +23,15 @@ df = pd.read_csv("Datasets/bollywood.csv")
 with open("bin/vectorizer.pkl","rb") as f:
     vectorizer = pickle.load(f)
 
+TMDBgen = {
+    28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime",
+    99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History",
+    27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction",
+    10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"
+}
 
 def getMovieInfo(movieName):
+
     url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDBAPI}&query={movieName}"
     response = requests.get(url).json()
     movieInfo = {}
@@ -36,6 +43,9 @@ def getMovieInfo(movieName):
         popularity = top.get('popularity')
         posterPath = top.get('poster_path')
         overview = top.get('overview','')
+        genre_ids = top.get('genre_ids', [])
+
+        genres_list = [TMDBgen.get(gid, "Unknown") for gid in genre_ids]
 
         image = 'https://image.tmdb.org/t/p/w500'
         poster = f"{image}{posterPath}" if posterPath else "No image"
@@ -47,6 +57,7 @@ def getMovieInfo(movieName):
         movieInfo['poster'] = poster
         
         movieInfo['overview'] = overview
+        movieInfo['genres'] = genres_list
 
         # print(f"Title: {title}")
         # print(f"Rating: {rating}/10 (from {votes} votes)")

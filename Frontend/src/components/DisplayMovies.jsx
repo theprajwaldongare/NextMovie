@@ -35,7 +35,7 @@ const DisplayMovies = () => {
             <div ref={displayRef} className='flex flex-wrap items-center justify-center mt-10 w-full'>
                 {movieData.map((movieItem, index) => {
                     return (
-                        <MovieTemplate movieName={movieItem[0]} summary={movieItem[2]} poster={movieItem[3].poster} />
+                        <MovieTemplate key={index} movieName={movieItem[0]} summary={movieItem[2]} poster={movieItem[3].poster} genres={movieItem[3].genres} />
                         // <div key={index} className="movieCardTemp flex flex-col justify-center items-center w-80 mt-4">
                         //     <div className="mname">{movieItem[0]}</div>
                         //     <div className="mscore">{movieItem[1]}</div>
