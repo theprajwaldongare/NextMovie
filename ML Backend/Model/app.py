@@ -9,7 +9,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from flask import Flask,url_for,redirect,request,render_template,jsonify
 
 
-app = Flask(__name__)
+app = Flask(__name__, 
+            static_folder='dist/assets', 
+            template_folder='dist')
 CORS(app)
 
 load_dotenv()

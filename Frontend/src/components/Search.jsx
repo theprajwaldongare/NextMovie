@@ -67,7 +67,8 @@ const Search = () => {
 
             if (bInclude && hInclude) {
                 try {
-                    const res = await fetch("http://127.0.0.1:5000/recommend", {
+                    // for local http://127.0.0.1:5000/recommend
+                    const res = await fetch("/recommend", {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json"
@@ -95,7 +96,7 @@ const Search = () => {
             }
             else if (bInclude) {
                 try {
-                    const res = await fetch("http://127.0.0.1:5000/bollywood", {
+                    const res = await fetch("/bollywood", {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json"
@@ -123,7 +124,7 @@ const Search = () => {
             }
             else if (hInclude) {
                 try {
-                    const res = await fetch("http://127.0.0.1:5000/hollywood", {
+                    const res = await fetch("/hollywood", {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json"
