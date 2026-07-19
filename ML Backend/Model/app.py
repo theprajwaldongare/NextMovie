@@ -6,7 +6,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from flask_cors import CORS
 from sklearn.metrics.pairwise import cosine_similarity
-from flask import Flask,url_for,redirect,request,render_template,jsonify
+from flask import Flask,url_for,redirect,request,render_template,jsonify,send_from_directory
 
 
 app = Flask(__name__, 
@@ -17,9 +17,22 @@ CORS(app)
 load_dotenv()
 TMDBAPI = os.getenv('TMDB_API')
 
-@app.route("/")
-def home():
+@app.route('/<path:filename>')
+def serve_root_files(filename):
+    if os.path.exists(os.path.join('dist', filename)):
+        return send_from_directory('dist', filename)
+    
     return render_template("index.html")
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template("index.html")
+
+# @app.route("/")
+# def home():
+#     return render_template("index.html")
 
 df = pd.read_csv("Datasets/bollywood.csv")
 with open("bin/vectorizer.pkl","rb") as f:
